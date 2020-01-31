@@ -1,29 +1,28 @@
 'use strict';
 
-var Person = {
-    name: 'João Pedro',
-    age: '18',
-    location: 'Esteio'
+var app = {
+    title: 'Indecision App',
+    subtitle: 'put your life in the hands of a computer'
 };
-var template2 = React.createElement(
+var getSubtitle = function getSubtitle(subtitle) {
+    if (subtitle) {
+        return React.createElement(
+            'h2',
+            null,
+            subtitle
+        );
+    }
+};
+var template = React.createElement(
     'div',
     null,
     React.createElement(
         'h1',
         null,
-        Person.name
+        app.title
     ),
-    React.createElement(
-        'p',
-        null,
-        Person.age
-    ),
-    React.createElement(
-        'p',
-        null,
-        Person.location
-    )
+    getSubtitle(app.subtitle)
 );
 var path = document.querySelector('body');
 
-ReactDOM.render(template2, path);
+ReactDOM.render(template, path);

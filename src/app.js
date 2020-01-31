@@ -1,15 +1,18 @@
-const Person = {
-    name:'João Pedro',
-    age:'18',
-    location:'Esteio'
+const app = {
+    title:'Indecision App',
+    subtitle:'put your life in the hands of a computer'
 }
-var template2 = (
+const getSubtitle = (subtitle)=>{
+    if (subtitle) {
+        return <h2>{subtitle}</h2>
+    }
+}
+var template = (
     <div>
-    <h1>{Person.name}</h1>
-    <p>{Person.age}</p>
-    <p>{Person.location}</p>
+    <h1>{app.title}</h1>
+    {getSubtitle(app.subtitle)}
     </div>
 ); 
 var path = document.querySelector('body')
 
-ReactDOM.render(template2, path)
+ReactDOM.render(template, path)
