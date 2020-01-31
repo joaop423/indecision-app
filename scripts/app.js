@@ -1,8 +1,9 @@
 'use strict';
 
-var name = 'Vitorrio';
-var funcao = function funcao(nome) {
-    return nome + '%';
+var Person = {
+    name: 'João Pedro',
+    age: '18',
+    location: 'Esteio'
 };
 var template2 = React.createElement(
     'div',
@@ -10,17 +11,17 @@ var template2 = React.createElement(
     React.createElement(
         'h1',
         null,
-        funcao(name)
+        Person.name
     ),
     React.createElement(
         'p',
         null,
-        'Age: 18'
+        Person.age
     ),
     React.createElement(
         'p',
         null,
-        'Location: Porto Alegre'
+        Person.location
     )
 );
 var path = document.querySelector('body');
