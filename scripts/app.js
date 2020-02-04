@@ -2,27 +2,54 @@
 
 var app = {
     title: 'Indecision App',
-    subtitle: 'put your life in the hands of a computer'
+    subtitle: 'This is my subtitle',
+    options: ['one', 'two']
 };
-var getSubtitle = function getSubtitle(subtitle) {
-    if (subtitle) {
-        return React.createElement(
-            'h2',
-            null,
-            subtitle
-        );
-    }
-};
-var template = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h1',
-        null,
-        app.title
-    ),
-    getSubtitle(app.subtitle)
-);
-var path = document.querySelector('body');
 
-ReactDOM.render(template, path);
+var count = 0;
+
+var incrase = function incrase() {
+    count++;
+    renderPage();
+};
+
+var deacrase = function deacrase() {
+    count--;
+    renderPage();
+};
+
+var reset = function reset() {
+    count = 0;
+    renderPage();
+};
+var path = document.querySelector('body');
+var renderPage = function renderPage() {
+    var template = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h1',
+            null,
+            'Count: ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: incrase },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: deacrase },
+            '-1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            'reset'
+        )
+    );
+    ReactDOM.render(template, path);
+};
+
+renderPage();

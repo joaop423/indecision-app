@@ -1,18 +1,37 @@
 const app = {
-    title:'Indecision App',
-    subtitle:'put your life in the hands of a computer'
+    title: 'Indecision App',
+    subtitle: 'This is my subtitle',
+    options: ['one', 'two']
 }
-const getSubtitle = (subtitle)=>{
-    if (subtitle) {
-        return <h2>{subtitle}</h2>
-    }
-}
-var template = (
-    <div>
-    <h1>{app.title}</h1>
-    {getSubtitle(app.subtitle)}
-    </div>
-); 
-var path = document.querySelector('body')
 
-ReactDOM.render(template, path)
+let count = 0
+
+const incrase = () => {
+    count++
+    renderPage();
+}
+
+const deacrase = () => {
+    count--
+    renderPage();
+}
+
+const reset = () =>{
+    count = 0
+    renderPage()
+}
+const path = document.querySelector('body')
+const renderPage = () =>{
+    var template = (
+        <div>
+            <h1>Count: {count}</h1>
+            <button onClick={incrase}>+1</button>
+            <button onClick={deacrase}>-1</button>
+            <button onClick={reset}>reset</button>
+    
+        </div>
+    );
+    ReactDOM.render(template, path)
+    }
+
+    renderPage();
