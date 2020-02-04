@@ -1,55 +1,32 @@
 'use strict';
 
-var app = {
-    title: 'Indecision App',
-    subtitle: 'This is my subtitle',
-    options: ['one', 'two']
+var visibility = false;
+var toggleVisibility = function toggleVisibility() {
+    visibility = !visibility;
+    render();
 };
 
-var count = 0;
-
-var incrase = function incrase() {
-    count++;
-    renderPage();
-};
-
-var deacrase = function deacrase() {
-    count--;
-    renderPage();
-};
-
-var reset = function reset() {
-    count = 0;
-    renderPage();
-};
-var path = document.querySelector('body');
-var renderPage = function renderPage() {
+var render = function render() {
     var template = React.createElement(
         'div',
         null,
         React.createElement(
             'h1',
             null,
-            'Count: ',
-            count
+            'Visibility Toggle'
         ),
         React.createElement(
             'button',
-            { onClick: incrase },
-            '+1'
+            { onClick: toggleVisibility },
+            visibility ? 'hide details' : 'show details'
         ),
-        React.createElement(
-            'button',
-            { onClick: deacrase },
-            '-1'
-        ),
-        React.createElement(
-            'button',
-            { onClick: reset },
-            'reset'
+        visibility && React.createElement(
+            'p',
+            null,
+            'teste'
         )
     );
-    ReactDOM.render(template, path);
+    ReactDOM.render(template, document.querySelector('div#app'));
 };
 
-renderPage();
+render();
