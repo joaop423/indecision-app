@@ -1,3 +1,16 @@
+//REVISAR O TOGGLE VISIBILITY
+class MainPage extends React.Component{
+    
+    render(){
+        return(
+            <div>
+            <Counter/>
+            <Visibility/>
+            </div>
+        )
+    }
+}
+
 class Counter extends React.Component{
     constructor(props){
         super(props);
@@ -26,12 +39,13 @@ class Counter extends React.Component{
     }
 
     reset(){
-        this.setState(() =>{
+        this.setState((prevState) =>{
             return{
                 count: 0
             }
         })
     }
+
     render(){
         return(
             <div>
@@ -43,4 +57,31 @@ class Counter extends React.Component{
         )
     }
 }
-ReactDOM.render(<Counter/>, document.querySelector('div#app'))
+
+class Visibility extends React.Component{
+    constructor(props){
+        super(props);
+        this.toggleVisibility = this.toggleVisibility.bind(this)
+        this.state = {
+            visibility:true
+        }
+    }
+
+    toggleVisibility(){
+        this.setState((prevState) => {
+            return{
+                visibility: !prevState.visibility
+            }
+        })
+        
+    }
+    
+    render(){
+    return(
+    <div>
+    <button onClick={this.toggleVisibility}>{this.state.visibility?'Hide Detais':'Show details'}</button>
+    </div>
+    )
+    }
+}
+ReactDOM.render(<MainPage/>, document.querySelector('div#app'))
