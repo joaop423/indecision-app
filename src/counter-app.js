@@ -16,10 +16,10 @@ class MainPage extends React.Component {
     render() {
         return (
             <div>
-            {this.state.visibility&&<Counter/>}
-                <Visibility 
-                toggleVisibility={this.toggleVisibility}
-                visibility={this.state.visibility}
+                {this.state.visibility && <Counter />}
+                <Visibility
+                    toggleVisibility={this.toggleVisibility}
+                    visibility={this.state.visibility}
                 />
             </div>
         )

@@ -4,8 +4,15 @@
   "main": "index.js",
   "author": "joao pedro",
   "license": "MIT",
+  "scripts": {
+    "serve": "live-server",
+    "build": "babel src/app.js --out-file=scripts/app.js --presets=env,react --watch"
+  },
   "devDependencies": {
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1"
+  },
+  "dependencies": {
+    "webpack": "^3.1.0"
   }
 }
