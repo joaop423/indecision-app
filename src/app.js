@@ -5,17 +5,44 @@ class IndecisionApp extends React.Component {
         this.removeAll = this.removeAll.bind(this);
         this.whatShouldIDo = this.whatShouldIDo.bind(this);
         this.handleAddOption = this.handleAddOption.bind(this);
+        this.removeOption = this.removeOption.bind(this);
         this.state = {
             options: props.options
         }
     }
+    componentDidMount() {
+        try {
+            const options = JSON.parse(localStorage.getItem('options'))
+            if (options) {
+                this.setState(() => ({
+                    options: options
+                }))
+            }
+        } catch (error) {
+
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            localStorage.setItem('options', JSON.stringify(this.state.options))
+        }
+    }
 
     removeAll() {
-        this.setState(() => {
-            return {
-                options: []
-            }
+        this.setState(() => ({
+            options: []
         })
+        )
+    }
+
+    removeOption(optionToRemove) {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => {
+                return optionToRemove !== option
+            })
+        })
+        )
     }
 
     whatShouldIDo() {
@@ -27,13 +54,10 @@ class IndecisionApp extends React.Component {
         if (this.state.options.indexOf(option) !== -1) {
             return 'The Option Already Exists!!!'
         } else {
-
-
-            this.setState((prevState) => {
-                return {
-                    options: prevState.options.concat(option)
-                }
+            this.setState((prevState) => ({
+                options: prevState.options.concat(option)
             })
+            )
         }
     }
 
@@ -41,7 +65,7 @@ class IndecisionApp extends React.Component {
         const subTitle = 'Put your life in hands of a computer';
         return (
             <div>
-                <Header subTitle={subTitle}/>
+                <Header subTitle={subTitle} />
                 <Action
                     hasOptions={this.state.options.length > 0}
                     whatShouldIDo={this.whatShouldIDo}
@@ -49,6 +73,7 @@ class IndecisionApp extends React.Component {
                 <Options
                     options={this.state.options}
                     removeAll={this.removeAll}
+                    removeOption={this.removeOption}
                 />
                 <AddOption
                     handleAddOption={this.handleAddOption}
@@ -72,11 +97,13 @@ class AddOption extends React.Component {
         const option = e.target.elements.option.value.trim();
         if (option) {
             const error = this.props.handleAddOption(option);
-            this.setState(() => {
-                return {
-                    error: error
-                }
+            this.setState(() => ({
+                error: error
             })
+            )
+            if (!error) {
+                e.target.elements.option.value = "";
+            }
         }
 
     }
@@ -120,7 +147,11 @@ const Action = (props) => {
 const Options = (props) => {
     return (
         <div>
-            {props.options.map((option) => <Option key={option} optionText={option} />)}
+            {props.options.map((option) => <Option
+                key={option}
+                optionText={option}
+                removeOption={props.removeOption}
+            />)}
             <button onClick={props.removeAll}>Remove All</button>
         </div>
     )
@@ -130,6 +161,9 @@ const Option = (props) => {
     return (
         <div>
             {props.optionText}
+            <button
+                onClick={(e) => props.removeOption(props.optionText)}
+            >Remove</button>
         </div>
     )
 }
@@ -140,6 +174,6 @@ IndecisionApp.defaultProps = {
 
 Header.defaultProps = {
     title: 'Indecision App'
-};
+}
 
-ReactDOM.render(<IndecisionApp/>, document.querySelector('div#app'));
+ReactDOM.render(<IndecisionApp />, document.querySelector('div#app'));
