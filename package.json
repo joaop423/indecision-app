@@ -14,6 +14,6 @@
     "babel-preset-react": "^6.24.1"
   },
   "dependencies": {
-    "webpack": "^3.1.0"
+    "webpack": "^5.75.0"
   }
 }
